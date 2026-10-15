@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}API Health Monitor{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            color: #182230;
+            margin: 0;
+        }
+
+        header {
+            background: #15243a;
+            color: white;
+            padding: 20px;
+        }
+
+        header a {
+            color: white;
+            margin-left: 16px;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pill {
+            font-weight: bold;
+            padding: 5px 9px;
+            border-radius: 15px;
+        }
+
+        .UP {
+            color: #126b3a;
+            background: #dff7e8;
+        }
+
+        .DEGRADED {
+            color: #875800;
+            background: #fff0c2;
+        }
+
+        .DOWN {
+            color: #a32121;
+            background: #ffe1e1;
+        }
+
+        button {
+            background: #205bd6;
+            color: white;
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .muted {
+            color: #647184;
+            font-size: 0.9rem;
+            overflow-wrap: anywhere;
+        }
+
+        .flash {
+            padding: 12px;
+            background: #e5f4e9;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <strong>API Health Monitor</strong>
+    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('main.history') }}">History</a>
+</header>
+
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="flash">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
