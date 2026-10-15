@@ -3,7 +3,7 @@
 
 Made by- Kavya Anil (anilkavya266@gmail.com)
 
-A Python-based API monitoring tool that periodically checks HTTP endpoints, measures response times, stores check history in SQLite, and displays results on a Flask dashboard.
+A Python web-based API monitoring dashboard using Flask to track API health, HTTP status codes, response times, and availability, including check history using SQLite and automated testing with GitHub Actions
 
 ## Features
 
@@ -15,7 +15,7 @@ A Python-based API monitoring tool that periodically checks HTTP endpoints, meas
 - Background scheduled checks
 - Flask dashboard and history page
 - Automated tests with pytest
-- GitHub Actions continuous integration
+- GitHub Actions testing & continuous integration
 
 ## Tech Stack
 
@@ -23,7 +23,7 @@ Python, Flask, Requests, SQLite, APScheduler, pytest, GitHub Actions.
 
 ## Setup
 
-Make sure Python is installed, then open a terminal in the project folder.
+Install python.
 
 Install the dependencies:
 
@@ -51,5 +51,4 @@ python -m pytest -q
 - DEGRADED: unexpected HTTP status or slow response
 - DOWN: timeout or request/network error
 
-Availability is calculated from sampled check results. It is not a guarantee of continuous uptime.
 
