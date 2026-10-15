@@ -2,6 +2,11 @@ import time
 from datetime import datetime, timezone
 import requests
 
+
+# Checks the availability and response time of an API and classifies it as UP, DEGRADED, DOWN
+# Records the HTTP status code, response time, timestamp, and any errors
+# Runs checks for all enabled services, saves the results to the database, and returns them
+
 # UP- Expected HTTP status and acceptable response time
 # DEGRADED- Unexpected HTTP status/Response exceeds the slow threshold
 # DOWN- Timeout or other Requests exception
@@ -12,7 +17,6 @@ def check_api(
     timeout=5.0,
     slow_threshold_ms=1500.0,
 ):
-    """Send a request and return the API's health result."""
     started = time.perf_counter()
     checked_at = datetime.now(timezone.utc).isoformat()
 
@@ -65,7 +69,6 @@ def check_api(
 
 
 def run_all_checks():
-    """Check every enabled service and save the results."""
 
     from flask import current_app
     from app.database import get_db, save_check_result

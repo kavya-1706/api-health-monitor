@@ -6,8 +6,11 @@ from config import CHECK_INTERVAL_SECONDS
 _scheduler = None
 
 
+# to start a scheduler to run API health checks at regular intervals (60 seconds, from config file)
+# executes run_all_checks(), prevents duplicate scheduler instances
+# runs checks based on CHECK_INTERVAL_SECONDS (60 seconds)
+
 def start_scheduler(app):
-    """Start periodic health checks."""
 
     global _scheduler
 

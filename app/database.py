@@ -2,9 +2,11 @@ import sqlite3
 from datetime import datetime, timezone
 from flask import current_app, g
 
-def get_db():
-    """Get a database connection for the current Flask context."""
+# SQLite database connection and tables for services and API check results
+# makes the database with sample services, gets service details and recent check results, and saves results
+# calculates service availability percentage and closes the database connection when the Flask application ends
 
+def get_db():
     if "db" not in g:
         g.db = sqlite3.connect(
             current_app.config["DATABASE_PATH"]
@@ -15,14 +17,11 @@ def get_db():
     return g.db
 
 def close_db(_error=None):
-    """Close the database connection."""
-
     db = g.pop("db", None)
     if db is not None:
         db.close()
 
 def init_db():
-    """Create tables and insert demo services on first launch."""
     db = get_db()
     db.executescript(
         """
@@ -82,8 +81,6 @@ def init_db():
     db.commit()
 
 def get_services_with_latest_results():
-    """Get every service and its latest check result."""
-
     db = get_db()
 
     return db.execute(
@@ -106,8 +103,6 @@ def get_services_with_latest_results():
     ).fetchall()
 
 def save_check_result(service_id, result):
-    """Insert one check result into the database."""
-
     db = get_db()
 
     cursor = db.execute(
@@ -131,8 +126,6 @@ def save_check_result(service_id, result):
     return cursor.lastrowid
 
 def get_recent_results(limit=100):
-    """Return recent results, newest first."""
-
     return get_db().execute(
         """
         SELECT r.*, s.name AS service_name,
@@ -146,7 +139,6 @@ def get_recent_results(limit=100):
     ).fetchall()
 
 def get_availability(service_id, limit=100):
-    """Calculate availability from the latest recorded checks."""
 
     rows = get_db().execute(
         """

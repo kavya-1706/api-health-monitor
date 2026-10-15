@@ -1,6 +1,5 @@
 
 import requests
-
 from app.monitor import check_api
 
 

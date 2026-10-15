@@ -1,14 +1,18 @@
 
-name: Tests
+# workflow runs tests automatically on every push 
+# uses an Ubuntu virtual machine to execute the job
+# repository code is checked out using actions/checkout@v4
+# Python 3.12 is installed using actions/setup-python@v5
+# pip is upgraded, project dependencies are installed from requirements.txt
+# pytest -q runs all tests and displays a summary
 
+name: Tests
 on:
   push:
   pull_request:
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
